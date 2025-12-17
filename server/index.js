@@ -63,6 +63,25 @@ app.get('/api/activities/:cityId', (req, res) => {
     }
 });
 
+// Serve static files from the React app
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// Serve static files from the dist directory (which will be copied to the server root or parent in Docker)
+// In Docker, we'll likely copy 'dist' to a folder relative to this file.
+// Let's assume 'dist' is in the parent directory for local dev compatibility if built, 
+// or we can structure the Dockerfile to place it there.
+app.use(express.static(path.join(__dirname, '../dist')));
+
+// The "catchall" handler: for any request that doesn't
+// match one above, send back React's index.html file.
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../dist/index.html'));
+});
+
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
 });
