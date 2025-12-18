@@ -18,14 +18,14 @@ export default function Planner() {
     useEffect(() => {
         setLoading(true);
         Promise.all([
-            fetch(`http://localhost:3000/api/cities/${cityId}`).then(res => {
+            fetch(`/api/cities/${cityId}`).then(res => {
                 if (!res.ok) throw new Error('City not found');
                 return res.json();
             }),
-            fetch(`http://localhost:3000/api/spots/${cityId}`).then(res => res.json()),
-            fetch(`http://localhost:3000/api/hotels/${cityId}`).then(res => res.json()),
-            fetch(`http://localhost:3000/api/activities/${cityId}`).then(res => res.json()),
-            fetch(`http://localhost:3000/api/eateries/${cityId}`).then(res => res.json())
+            fetch(`/api/spots/${cityId}`).then(res => res.json()),
+            fetch(`/api/hotels/${cityId}`).then(res => res.json()),
+            fetch(`/api/activities/${cityId}`).then(res => res.json()),
+            fetch(`/api/eateries/${cityId}`).then(res => res.json())
         ])
             .then(([cityData, spotsData, hotelsData, activitiesData, eateriesData]) => {
                 setCity(cityData);

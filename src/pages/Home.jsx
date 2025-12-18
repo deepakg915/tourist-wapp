@@ -9,7 +9,7 @@ export default function Home() {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        fetch('http://localhost:3000/api/cities')
+        fetch('/api/cities')
             .then(res => res.json())
             .then(data => {
                 setCities(data);
